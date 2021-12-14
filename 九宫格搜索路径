@@ -1,0 +1,60 @@
+```
+class Tree():
+    def __init__(self,x,y,path = []) -> None:
+        self.x = x
+        self.y = y
+        self.position = (x,y)
+        self.path = path
+        self.up = None
+        self.down = None
+        self.left = None
+        self.right = None
+
+def go_up(tree: Tree):
+    tree.up = Tree(tree.x,tree.y+1,tree.path.copy())
+    return tree.up
+def go_down(tree: Tree):
+    tree.down = Tree(tree.x,tree.y-1,tree.path.copy())
+    return tree.down
+def go_right(tree: Tree):
+    tree.right = Tree(tree.x+1,tree.y,tree.path.copy())
+    return tree.right
+def go_left(tree: Tree):
+    tree.left = Tree(tree.x-1,tree.y,tree.path.copy())
+    return tree.left
+
+def search(tree: Tree, n):
+    tree.path.append(tree.position)
+    if tree.x == n and tree.y == n:
+        print(tree.path)
+    if tree.x < n and go_right(tree).position not in tree.path:
+        search(go_right(tree),n)
+    if tree.y < n and go_up(tree).position not in tree.path:
+        search(go_up(tree),n)
+    if tree.x > 1 and go_left(tree).position not in tree.path:
+        search(go_left(tree),n)
+    if tree.y > 1 and go_down(tree).position not in tree.path:
+        search(go_down(tree),n)
+
+start = Tree(1,1)
+search(start,4)
+
+
+
+'''
+def go(tree: Tree):
+    #tree.path.append((tree.x,tree.y))
+    if tree.x == 3 and tree.y == 3:
+        print(tree.path)
+    if tree.x == 0:
+        tree.left = Tree(tree.x+1,tree.y,tree.path.copy())
+        go(tree.left)
+    if tree.y < 5:
+        tree.right = Tree(tree.x,tree.y+1,tree.path)
+        go(tree.right)
+
+
+start = Tree(0,0)
+go(start)
+'''
+```
